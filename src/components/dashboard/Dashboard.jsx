@@ -2,6 +2,9 @@ import React, { useEffect, useState, useId } from "react";
 import passwordService from "../../services/password";
 import ViewPassword from "./ViewPassword";
 import { Button } from "../";
+import { formateDate } from "../../util/utility";
+
+
 function Dashboard() {
   const [passList, setPassList] = useState([]);
   useEffect(() => {
@@ -38,7 +41,7 @@ function Dashboard() {
               return (
                 <div key={pass._id} className="flex flex-col mb-5">
                   <span className="text-lg font-semibold">{pass.about}</span>
-                  <span className="text-sm">Created At: {pass.createdAt}</span>
+                  <span className="text-sm">Created At: {formateDate(pass.createdAt)}</span>
                   {/* <ViewPassword /> */}
                   <Button
                     onClick={() => showPassword(pass)}

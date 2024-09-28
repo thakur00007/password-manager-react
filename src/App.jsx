@@ -17,7 +17,7 @@ function App() {
       if(res) {
         dispatch(login(res));
       } else {
-        // dispatch(logout());
+        dispatch(logout());
       }
     })
     .catch((err) => {
