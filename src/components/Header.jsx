@@ -4,7 +4,7 @@ import {
   UserCircleIcon,
   HomeIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/auth/authSlice";
 
@@ -13,7 +13,7 @@ function Header() {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="w-full flex py-4">
+      <div className="w-full flex py-4 border-b-2 border-gray-100">
         {status ? (
           <>
             <div className="w-1/5">
@@ -27,21 +27,36 @@ function Header() {
 
             <div className="w-3/5 flex justify-center">
               <nav className="flex justify-center">
-                <Link to="/" className="text-sm font-semibold leading-6">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `text-sm font-semibold leading-6 ${
+                      isActive ? "text-blue-500" : ""
+                    }`
+                  }
+                >
                   Generate Password
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/save-password"
-                  className="text-sm font-semibold leading-6 ms-5"
+                  className={({ isActive }) =>
+                    `text-sm font-semibold leading-6 ms-5 ${
+                      isActive ? "text-blue-500" : ""
+                    }`
+                  }
                 >
                   Save Password
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/dashboard"
-                  className="text-sm font-semibold leading-6 ms-5"
+                  className={({ isActive }) =>
+                    `text-sm font-semibold leading-6 ms-5 ${
+                      isActive ? "text-blue-500" : ""
+                    }`
+                  }
                 >
                   Dashboard
-                </Link>
+                </NavLink>
               </nav>
             </div>
 
