@@ -6,13 +6,13 @@ export class UserService{
   url = '';
   token = null;
   constructor() {
-    this.url = 'http://localhost:5001/api/v1/'; // TODO assign from .env file
+    this.url = `${import.meta.env.VITE_API_HOST_URL}${import.meta.env.VITE_API_DEFAULT_PATH}/user`; // TODO assign from .env file
     this.token = getValue('auth-token');
   }
 
   async userSignup (userDetails) {
     try {
-      const response = await fetch(this.url+'user/register', {
+      const response = await fetch(this.url+'/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export class UserService{
 
   async userLogin (cradentials) {
     try {
-      const response = await fetch(this.url+'user/login', {
+      const response = await fetch(this.url+'/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export class UserService{
         console.log('No token found')
         throw new Error('No token found');
       }
-      const response = await axios.get(this.url+'user/getuserprofile', {
+      const response = await axios.get(this.url+'/getuserprofile', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer '+this.token

@@ -3,13 +3,13 @@ export class PasswordService {
   url = "";
   token = null;
   constructor() {
-    this.url = "http://localhost:5001/api/v1/password/"; // TODO assign from .env file
+    this.url = `${import.meta.env.VITE_API_HOST_URL}${import.meta.env.VITE_API_DEFAULT_PATH}/password`; // TODO assign from .env file
     this.token = getValue('auth-token');
   }
 
   async savePassword(data) {
     try {
-      const response = await fetch(this.url + "save", {
+      const response = await fetch(this.url + "/save", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export class PasswordService {
 
   async fetchAllPasswords() {
     try {
-      const response = await fetch(this.url + "fetchall", {
+      const response = await fetch(this.url + "/fetchall", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export class PasswordService {
 
   async showPassword(data) {
     try {
-      const response = await fetch(this.url + "fetch", {
+      const response = await fetch(this.url + "/fetch", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
