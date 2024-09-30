@@ -1,7 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
 
 import {
   RouterProvider,
@@ -13,11 +13,15 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
 
-import Errorpage from "./components/Error/Errorpage.jsx";
-import Login from "./components/Login/Login.jsx";
-import Loading from './components/Loading.jsx';
-import GeneratePassword from "./components/GeneratePassword/GeneratePassword.jsx"
-import { Dashboard, SavePassword, Signup } from './components/';
+import {
+  AuthLayout,
+  Dashboard,
+  SavePassword,
+  Signup,
+  Login,
+  Errorpage,
+  GeneratePassword,
+} from "./components/";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,17 +35,31 @@ const router = createBrowserRouter(
       }
     >
       <Route path="" element={<GeneratePassword />} />
-      <Route path="login" element={<Login />} />      
-      <Route path="loading" element={<Loading />} />
+      <Route path="login" element={<Login />} />
       <Route path="register" element={<Signup />} />
-      <Route path="save-password" element={<SavePassword />} />
-      <Route path="dashboard" element={<Dashboard />} />
+
+      <Route
+        path="save-password"
+        element={
+          <AuthLayout>
+            <SavePassword />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="dashboard"
+        element={
+          <AuthLayout>
+            <Dashboard />
+          </AuthLayout>
+        }
+      />
     </Route>
   )
 );
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <RouterProvider router={router} />
-  </Provider>,
-)
+  </Provider>
+);

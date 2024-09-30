@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button, Input } from "../";
 import { useForm } from "react-hook-form";
-import passwordService from "../../services/password";
+import PasswordService from "../../services/password";
 
 function ViewPassword({ pass, close }) {
   const viewPasswordRef = useRef(null);
@@ -14,12 +14,14 @@ function ViewPassword({ pass, close }) {
   const { register, handleSubmit } = useForm();
   const showPassword = (data) => {
     data.passwordId = pass._id;
-    passwordService.showPassword(data).then((res) => {  
-      alert(res.password);
-    }
-    ).catch((err) => {
-      alert(err.message);
-    });
+    new PasswordService()
+      .showPassword(data)
+      .then((res) => {
+        alert(res.data.password);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (
@@ -40,7 +42,9 @@ function ViewPassword({ pass, close }) {
       <div className="dark:bg-[#2e3345] bg-[#c3d7ff] w-96 backdrop-blur-3xl rounded-xl shadow-[10px_10px_20px_8px_rgba(0,0,0,0.3)]">
         <div className="w-full py-1 flex justify-center items-center border-b-2 border-gray-100">
           <div className="w-5/6">
-            <h2 className="text-2xl mb-0 text-center font-bold">View Password</h2>
+            <h2 className="text-2xl mb-0 text-center font-bold">
+              View Password
+            </h2>
           </div>
         </div>
         {/* <h1 className="text-4xl text-center font-bold mb-8">View Password</h1> */}

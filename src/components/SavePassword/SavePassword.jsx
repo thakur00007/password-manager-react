@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Input, Select, Button } from "../";
-import securityQuestion from "../../services/securityQuestion";
+import { Input, Select, Button, Alert } from "../";
+import SecurityQuestion from "../../services/securityQuestion";
 import { useForm } from "react-hook-form";
-import passwordService from "../../services/password";
+import PasswordService from "../../services/password";
 function SavePassword() {
   const [questions, setQuestions] = useState([]);
   const { register, handleSubmit } = useForm();
+  const [error, setError] = useState();
+  const [message, setMessage] = useState();
 
-  const savePasswordSubmit = () => (data) => {
-    console.log(data);
-    passwordService
+  const savePasswordSubmit = (data) => {
+    new PasswordService()
       .savePassword(data)
       .then((res) => {
-        console.log(res);
+        setMessage(res.message);
+        setTimeout(() => {
+          setMessage("");
+        }, 6000);
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.message);
+        setTimeout(() => {
+          setError("");
+        }, 6000);
       });
   };
   useEffect(() => {
-    securityQuestion
+    new SecurityQuestion()
       .getSecurityQuestions()
       .then((res) => {
         setQuestions(
@@ -32,7 +39,10 @@ function SavePassword() {
         );
       })
       .catch((err) => {
-        console.log(err);
+        setError(err.message);
+        setTimeout(() => {
+          setError("");
+        }, 6000);
       });
   }, []);
 
@@ -45,10 +55,12 @@ function SavePassword() {
      * 4. answer to the security question
      */
 
-    <div className="container mx-auto flex justify-center items-center mt-20">
+    <div className="container mx-auto flex justify-center items-center mt-20 overflow-hidden">
+      {message && <Alert type="S" message={message} />}
+      {error && <Alert type="E" message={error} />}
       <div className="dark:bg-[#2e3345] bg-[#c3d7ff] sm:w-[28rem] w-80  p-3 px-2 sm:px-8 sm:py-10 backdrop-blur-3xl rounded-xl shadow-[10px_10px_20px_8px_rgba(0,0,0,0.3)]">
         <h1 className="text-4xl text-center font-bold mb-8">Save Password</h1>
-        <form onSubmit={handleSubmit(savePasswordSubmit())}>
+        <form onSubmit={handleSubmit(savePasswordSubmit)}>
           <Input
             label="Password: "
             placeholder="your password"

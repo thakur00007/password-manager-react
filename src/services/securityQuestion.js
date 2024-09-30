@@ -2,7 +2,9 @@ export class SecurityQuestionService {
   url = "";
   token = null;
   constructor() {
-    this.url = `${import.meta.env.VITE_API_HOST_URL}${import.meta.env.VITE_API_DEFAULT_PATH}/question`; // TODO assign from .env file
+    this.url = `${import.meta.env.VITE_API_HOST_URL}${
+      import.meta.env.VITE_API_DEFAULT_PATH
+    }/question`;
     // this.token = getValue('auth-token');
   }
 
@@ -27,5 +29,4 @@ export class SecurityQuestionService {
     }
   }
 }
-const securityQuestion = new SecurityQuestionService();
-export default securityQuestion;
+export default SecurityQuestionService;

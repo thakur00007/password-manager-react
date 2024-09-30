@@ -3,8 +3,10 @@ export class PasswordService {
   url = "";
   token = null;
   constructor() {
-    this.url = `${import.meta.env.VITE_API_HOST_URL}${import.meta.env.VITE_API_DEFAULT_PATH}/password`; // TODO assign from .env file
-    this.token = getValue('auth-token');
+    this.url = `${import.meta.env.VITE_API_HOST_URL}${
+      import.meta.env.VITE_API_DEFAULT_PATH
+    }/password`;
+    this.token = getValue("auth-token");
   }
 
   async savePassword(data) {
@@ -13,7 +15,7 @@ export class PasswordService {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': 'Bearer '+this.token
+          Authorization: "Bearer " + this.token,
         },
         body: JSON.stringify({ data }),
       });
@@ -24,13 +26,12 @@ export class PasswordService {
         throw new Error(responseData.message);
       }
 
-      return responseData.data;
+      return responseData;
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
-
 
   async fetchAllPasswords() {
     try {
@@ -38,7 +39,7 @@ export class PasswordService {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': 'Bearer '+this.token
+          Authorization: "Bearer " + this.token,
         },
       });
 
@@ -47,8 +48,7 @@ export class PasswordService {
         throw new Error(responseData.message);
       }
       console.log(responseData);
-      return responseData.data;
-
+      return responseData;
     } catch (error) {
       throw error;
     }
@@ -60,7 +60,7 @@ export class PasswordService {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': 'Bearer '+this.token
+          Authorization: "Bearer " + this.token,
         },
         body: JSON.stringify({ data }),
       });
@@ -71,13 +71,11 @@ export class PasswordService {
       }
       console.log(responseData);
 
-      return responseData.data;
+      return responseData;
     } catch (error) {
       throw error;
     }
   }
-
 }
 
-const passwordService = new PasswordService();
-export default passwordService;
+export default PasswordService;

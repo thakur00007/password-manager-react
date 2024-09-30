@@ -1,18 +1,17 @@
 import React, { useEffect, useState, useId } from "react";
-import passwordService from "../../services/password";
+import PasswordService from "../../services/password";
 import ViewPassword from "./ViewPassword";
 import { Button } from "../";
 import { formateDate } from "../../util/utility";
 
-
 function Dashboard() {
   const [passList, setPassList] = useState([]);
   useEffect(() => {
-    passwordService
+    new PasswordService()
       .fetchAllPasswords()
       .then((res) => {
         console.log(res);
-        setPassList(res);
+        setPassList(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -23,10 +22,7 @@ function Dashboard() {
   // const [viewPasswordContent, setViewPasswordContent] = useState("");
   const showPassword = (pass) => {
     setViewPassword(
-      <ViewPassword
-        pass={pass}
-        close={() => setViewPassword(<></>)}
-      />
+      <ViewPassword pass={pass} close={() => setViewPassword(<></>)} />
     );
   };
 
@@ -41,7 +37,9 @@ function Dashboard() {
               return (
                 <div key={pass._id} className="flex flex-col mb-5">
                   <span className="text-lg font-semibold">{pass.about}</span>
-                  <span className="text-sm">Created At: {formateDate(pass.createdAt)}</span>
+                  <span className="text-sm">
+                    Created At: {formateDate(pass.createdAt)}
+                  </span>
                   {/* <ViewPassword /> */}
                   <Button
                     onClick={() => showPassword(pass)}
