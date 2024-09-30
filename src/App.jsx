@@ -12,7 +12,7 @@ function App() {
   const authStatus = useSelector((state) => state.auth.status);
   useEffect(() => {
     setLoading(true);
-    new UserService.getCurrentUser()
+    new UserService().getCurrentUser()
       .then((res) => {
         if (res.data.loggedInUser) {
           dispatch(login(res.data.loggedInUser));
