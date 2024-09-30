@@ -36,11 +36,11 @@ This is the frontend component of a password manager application. It provides a 
     ```
 3. Configure the environment variables:
     
-    - Create a `.env` file in the root directory.
-    - Add the following variables:
+    - Copy `.env.example` as `.env` file in the root directory.
+    - Update the environment variables:
 
-    ```plaintext
-    REACT_APP_API_URL=http://localhost:5001
+    ```bash
+    cp .env.example .env
     ```
 4. Start the development server:
     
