@@ -7,10 +7,6 @@ import PasswordService from "../../services/password";
 function ViewPassword({ pass, close }) {
   const viewPasswordRef = useRef(null);
 
-  const closeViewPassword = () => {
-    close();
-  };
-
   const { register, handleSubmit } = useForm();
   const showPassword = (data) => {
     data.passwordId = pass._id;
@@ -33,7 +29,7 @@ function ViewPassword({ pass, close }) {
       <div className="absolute z-30 top-0 right-0">
         <button
           className="flex justify-center items-center text-2xl h-7 w-7 bg-red-600 rounded-tr-xl rounded-bl-xl font-semibold text-gray-900 dark:text-gra-100 cursor-pointer"
-          onClick={() => closeViewPassword()}
+          onClick={() => close()}
         >
           <XMarkIcon className="h-6 w-6 text-gray-100" />
         </button>
