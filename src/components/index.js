@@ -5,12 +5,15 @@ import Alert from "./Alert";
 import AuthLayout from "./AuthLayout";
 import Loading from "./Loading";
 import Header from "./Header";
-import Signup from "./Signup/Signup";
-import Login from "./Login/Login";
-import SavePassword from "./SavePassword/SavePassword";
+import SignupComponent from "./Signup/SignupComponent";
+import LoginComponent from "./Login/LoginComponent";
+import SavePasswordComponent from "./SavePassword/SavePasswordComponent";
 import Dashboard from "./dashboard/Dashboard";
 import Errorpage from "./Error/Errorpage";
 import GeneratePassword from "./GeneratePassword/GeneratePassword";
+import Overlay from "./Overlay";
+import Container from "./Container";
+
 export {
   Input,
   Button,
@@ -19,10 +22,12 @@ export {
   AuthLayout,
   Loading,
   Header,
-  Signup,
-  Login,
-  SavePassword,
+  SignupComponent,
+  LoginComponent,
+  SavePasswordComponent,
   Dashboard,
   Errorpage,
   GeneratePassword,
+  Overlay,
+  Container,
 };

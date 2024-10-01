@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Input, Select, Button, Alert } from "../";
+import { Input, Select, Button, Alert } from "..";
 import SecurityQuestion from "../../services/securityQuestion";
 import { useForm } from "react-hook-form";
 import PasswordService from "../../services/password";
-function SavePassword() {
+function SavePasswordComponent() {
   const [questions, setQuestions] = useState([]);
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState();
@@ -111,4 +111,4 @@ function SavePassword() {
   );
 }
 
-export default SavePassword;
+export default SavePasswordComponent;

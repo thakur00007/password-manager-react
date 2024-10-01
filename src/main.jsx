@@ -16,12 +16,10 @@ import { store } from "./store/store.js";
 import {
   AuthLayout,
   Dashboard,
-  SavePassword,
-  Signup,
-  Login,
   Errorpage,
   GeneratePassword,
 } from "./components/";
+import { Home, Login, Signup , SavePassword} from "./pages/";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,9 +32,30 @@ const router = createBrowserRouter(
         </>
       }
     >
-      <Route path="" element={<GeneratePassword />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Signup />} />
+      <Route
+        path="/"
+        element={
+          <AuthLayout authenicated={false}>
+            <Home />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="login"
+        element={
+          <AuthLayout authenicated={false}>
+            <Login />
+          </AuthLayout>
+        }
+      />
+      <Route
+        path="register"
+        element={
+          <AuthLayout authenicated={false}>
+            <Signup />
+          </AuthLayout>
+        }
+      />
 
       <Route
         path="save-password"
