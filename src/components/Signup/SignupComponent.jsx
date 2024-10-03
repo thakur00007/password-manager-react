@@ -8,9 +8,16 @@ import { useDispatch } from "react-redux";
 
 function SignupComponent() {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const [error, setError] = useState();
   const [message, setMessage] = useState();
+
+  const password = watch("password", "");
 
   const navigate = useNavigate();
   const userSignup = async (data) => {
@@ -36,7 +43,7 @@ function SignupComponent() {
     <>
       {message && <Alert type="S" message={message} />}
       {error && <Alert type="E" message={error} />}
-      <div className="container mx-auto flex justify-center items-center mt-20">
+      <div className="container mx-auto flex justify-center items-center">
         <div className="dark:bg-[#2e3345] bg-[#c3d7ff] sm:w-[28rem] w-80  p-3 px-2 sm:px-8 sm:py-10 backdrop-blur-3xl rounded-xl shadow-[10px_10px_20px_8px_rgba(0,0,0,0.3)]">
           <h1 className="text-4xl text-center font-bold mb-8">Registration</h1>
           <form onSubmit={handleSubmit(userSignup)}>
@@ -77,29 +84,18 @@ function SignupComponent() {
               className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
               {...register("password", {
                 required: true,
-                // validate: {
-                //   matchPatern: (value) =>
-                //     !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{14,}$/.test(
-                //       value
-                //     ) | !"Email address must be a valid address",
-                // },
-                // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{14,}$/,
               })}
             />
             <Input
-              label="Confirm password: "
+              label="Confirm Password: "
               type="password"
               placeholder="eg: retype password"
               className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
+              error={errors.cnfPassword && errors.cnfPassword.message}
               {...register("cnfPassword", {
                 required: true,
-                // validate: {
-                //   matchPatern: (value) =>
-                //     !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{14,}$/.test(
-                //       value
-                //     ) | !"Email address must be a valid address",
-                // },
-                // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{14,}$/,
+                validate: (value) =>
+                  value === password || "Passwords do not match",
               })}
             />
             <div className="flex justify-center mb-5">
