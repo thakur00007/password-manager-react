@@ -1,7 +1,15 @@
 import React, { forwardRef, useId } from "react";
 
 function Input(
-  { label, className = "", type = "text", placeholder = "", ...props },
+  {
+    label,
+    className = "",
+    type = "text",
+    placeholder = "",
+    error = "",
+    message = "",
+    ...props
+  },
   ref
 ) {
   const id = useId();
@@ -11,6 +19,9 @@ function Input(
         <label htmlFor={id} className="text-base">
           {label}
         </label>
+        {" "}
+        {error && <span className="text-red-600 text-xs">{error}</span>}
+        {message && <span className="text-green-500 text-xs">{message}</span>}
       </div>
       <div className="w-full">
         <input
