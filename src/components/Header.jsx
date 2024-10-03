@@ -46,6 +46,7 @@ function Header() {
             {navUrl.map((nav) =>
               nav.auth ? (
                 <NavLink
+                key={nav.name}
                   to={nav.url}
                   className={({ isActive }) =>
                     `text-sm font-semibold leading-6 ms-5 ${
