@@ -3,11 +3,15 @@ import { Input, Select, Button, Alert } from "..";
 import SecurityQuestion from "../../services/securityQuestion";
 import { useForm } from "react-hook-form";
 import PasswordService from "../../services/password";
+import { useSelector } from "react-redux";
+
 function SavePasswordComponent() {
   const [questions, setQuestions] = useState([]);
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState();
   const [message, setMessage] = useState();
+
+  const { coppiedPassword } = useSelector((state) => state.coppiedPassword);
 
   const savePasswordSubmit = (data) => {
     new PasswordService()
@@ -64,6 +68,7 @@ function SavePasswordComponent() {
           <Input
             label="Password: "
             placeholder="your password"
+            value={coppiedPassword}
             autoComplete="off"
             className={`rounded-md w-full h-8 pointer-finger bg-gray-100 text-gray-900  font-semibold px-3`}
             {...register("password", {

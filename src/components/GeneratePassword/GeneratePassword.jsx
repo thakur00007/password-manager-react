@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
 
 function GeneratePassword() {
+  const dispatch = useDispatch();
   const [length, setLength] = useState(8);
   const [allowNumbers, setAllowNumbers] = useState(true);
   const [allowSChars, setAllowSChars] = useState(false);
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const [translatePos, setTranslatePos] = useState("")
+  const [translatePos, setTranslatePos] = useState("");
 
   useEffect(() => {
     setPassword(generatePassword(length, allowNumbers, allowSChars));
@@ -34,14 +37,15 @@ function GeneratePassword() {
 
   const copyPass = (e) => {
     window.navigator.clipboard.writeText(password);
+    dispatch(setCoppiedPasswordSlice(password));
     inputPass.current.select();
     inputPass.current.setSelectionRange(0, length);
     setShowAlert(true);
-    setTranslatePos("-translate-x-12")
+    setTranslatePos("-translate-x-12");
 
     setTimeout(() => {
       setShowAlert(false);
-    }, 5000)
+    }, 5000);
   };
 
   return (
@@ -55,10 +59,11 @@ function GeneratePassword() {
       >
         <div className="text-end">Password Copied!</div>
         <div className="">
-            <Link to="/login" className="text-sm font-semibold leading-6">
-              <span className="text-sky-700">Log in &rarr;</span>To Save This Password
-            </Link>
-          </div>
+          <Link to="/login" className="text-sm font-semibold leading-6">
+            <span className="text-sky-700">Log in &rarr;</span>To Save This
+            Password
+          </Link>
+        </div>
       </div>
 
       <h1 className="text-4xl font-bold text-center my-10">
@@ -124,4 +129,4 @@ function GeneratePassword() {
   );
 }
 
-export default GeneratePassword
+export default GeneratePassword;
