@@ -26,6 +26,8 @@ export class UserService {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
+      responseData.data.token &&
+        setValue("auth-token", responseData.data.token);
 
       return responseData;
     } catch (error) {
@@ -48,7 +50,8 @@ export class UserService {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      setValue("auth-token", responseData.data.token);
+      responseData.data.token &&
+        setValue("auth-token", responseData.data.token);
 
       return responseData;
     } catch (error) {
