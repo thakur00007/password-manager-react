@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
 import { PlusCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
 import { Alert } from "../index";
 
 function GeneratePassword() {
   const dispatch = useDispatch();
+  const authStatus = useSelector((state) => state.auth.status);
   const [length, setLength] = useState(8);
   const [allowNumbers, setAllowNumbers] = useState(true);
   const [allowSChars, setAllowSChars] = useState(false);
@@ -42,7 +43,7 @@ function GeneratePassword() {
     inputPass.current.select();
     inputPass.current.setSelectionRange(0, length);
 
-    setMessage(
+    !authStatus && setMessage(
       <Link to="/login" className="text-sm font-semibold leading-6">
         <span className="text-sky-700">Log in &rarr;</span>To Save This Password
       </Link>
