@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
+import { Alert } from "../index";
 
 function GeneratePassword() {
   const dispatch = useDispatch();
@@ -9,15 +10,14 @@ function GeneratePassword() {
   const [allowNumbers, setAllowNumbers] = useState(true);
   const [allowSChars, setAllowSChars] = useState(false);
   const [password, setPassword] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
-  const [translatePos, setTranslatePos] = useState("");
+
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     setPassword(generatePassword(length, allowNumbers, allowSChars));
   }, [length, allowNumbers, allowSChars]);
 
   const inputPass = useRef(null);
-  const alertRef = useRef(null);
 
   const generatePassword = (length, allowNumbers, allowSChars) => {
     let alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -40,31 +40,20 @@ function GeneratePassword() {
     dispatch(setCoppiedPasswordSlice(password));
     inputPass.current.select();
     inputPass.current.setSelectionRange(0, length);
-    setShowAlert(true);
-    setTranslatePos("-translate-x-12");
 
+    setMessage(
+      <Link to="/login" className="text-sm font-semibold leading-6">
+        <span className="text-sky-700">Log in &rarr;</span>To Save This Password
+      </Link>
+    );
     setTimeout(() => {
-      setShowAlert(false);
-    }, 5000);
+      setMessage("");
+    }, 6000);
   };
 
   return (
     <>
-      {/* popup alert animating from right to save the password. disappres in 5 seconds */}
-      <div
-        className={`absolute right-0 top-0 ease-in-out duration-[5000ms] bg-blue-300 text-gray-50 p-2 rounded-l shadow-md ${translatePos} ${
-          showAlert ? "-translate-x-12" : "translate-x-12 hidden"
-        }`}
-        ref={alertRef}
-      >
-        <div className="text-end">Password Copied!</div>
-        <div className="">
-          <Link to="/login" className="text-sm font-semibold leading-6">
-            <span className="text-sky-700">Log in &rarr;</span>To Save This
-            Password
-          </Link>
-        </div>
-      </div>
+      {message && <Alert message={message} />}
 
       <h1 className="text-4xl font-bold text-center my-10">
         Password Generator
