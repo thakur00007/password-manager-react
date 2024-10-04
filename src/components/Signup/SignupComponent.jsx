@@ -54,12 +54,6 @@ function SignupComponent() {
               className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
               {...register("username", {
                 required: true,
-                // validate: {
-                //   matchPatern: (value) =>
-                //     !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                //     "Email address must be a valid address",
-                // },
-                // pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
               })}
             />
             <Input
@@ -67,14 +61,14 @@ function SignupComponent() {
               type="text"
               placeholder="eg: example@company.com"
               className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
+              error={errors.email && errors.email.message}
               {...register("email", {
                 required: true,
-                // validate: {
-                //   matchPatern: (value) =>
-                //     !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                //     "Email address must be a valid address",
-                // },
-                // pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                validate: {
+                  matchPatern: (value) =>
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                    "Email address must be a valid address",
+                },
               })}
             />
             <Input
@@ -82,8 +76,15 @@ function SignupComponent() {
               type="password"
               placeholder="eg: Abcdefg@12345678"
               className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
+              error={errors.password && errors.password.message}
               {...register("password", {
                 required: true,
+                validate: {
+                  matchPatern: (value) =>
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g.test(
+                      value
+                    ) || "Password must be a valid password",
+                },
               })}
             />
             <Input
