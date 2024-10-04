@@ -45,7 +45,7 @@ This is the frontend component of a password manager application. It provides a 
 4. Start the development server:
     
     ```bash
-    npm start
+    npm run dev
     ```
 
 ## Contributing
