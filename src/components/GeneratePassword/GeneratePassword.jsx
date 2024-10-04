@@ -43,11 +43,19 @@ function GeneratePassword() {
     inputPass.current.select();
     inputPass.current.setSelectionRange(0, length);
 
-    !authStatus && setMessage(
-      <Link to="/login" className="text-sm font-semibold leading-6">
-        <span className="text-sky-700">Log in &rarr;</span>To Save This Password
-      </Link>
-    );
+    !authStatus
+      ? setMessage(
+          <Link to="/login" className="text-sm font-semibold leading-6">
+            <span className="text-sky-700">Log in &rarr;</span>To Save This
+            Password
+          </Link>
+        )
+      : setMessage(
+          <Link to="/save-password" className="text-sm font-semibold leading-6">
+            <span className="text-sky-700">Password Coppied!</span><br />
+            <span className="text-sky-700">Save this Password &rarr;</span>
+          </Link>
+        );
     setTimeout(() => {
       setMessage("");
     }, 6000);
@@ -96,7 +104,8 @@ function GeneratePassword() {
               />
               <MinusCircleIcon
                 onClick={() => length > 8 && setLength(Number(length) - 1)}
-              className="h-6 w-6 mx-1 cursor-pointer" />
+                className="h-6 w-6 mx-1 cursor-pointer"
+              />
             </div>
           </div>
           <div className="flex justify-evenly w-full m-2">
