@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
+import { PlusCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
 import { Alert } from "../index";
 
 function GeneratePassword() {
@@ -58,7 +59,7 @@ function GeneratePassword() {
       <h1 className="text-4xl font-bold text-center my-10">
         Password Generator
       </h1>
-      <div className="flex justify-center">
+      <div className="flex justify-center select-none">
         <div className="flex w-[32rem] justify-center flex-col bg-gray-600 rounded p-8">
           <div className="flex justify-center w-full mb-2 shadow-md shadow-gray-900">
             <input
@@ -88,6 +89,13 @@ function GeneratePassword() {
                 onChange={(e) => setLength(e.target.value)}
               />
               <span className="w-5">{length}</span>
+              <PlusCircleIcon
+                onClick={() => length < 72 && setLength(Number(length) + 1)}
+                className="h-6 w-6 mx-1 cursor-pointer"
+              />
+              <MinusCircleIcon
+                onClick={() => length > 8 && setLength(Number(length) - 1)}
+              className="h-6 w-6 mx-1 cursor-pointer" />
             </div>
           </div>
           <div className="flex justify-evenly w-full m-2">
