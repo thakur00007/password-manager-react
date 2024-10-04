@@ -59,7 +59,7 @@ function SavePasswordComponent() {
      * 4. answer to the security question
      */
 
-    <div className="container mx-auto flex justify-center items-center mt-20 overflow-hidden">
+    <div className="container mx-auto flex justify-center items-center mt-2 overflow-hidden">
       {message && <Alert type="S" message={message} />}
       {error && <Alert type="E" message={error} />}
       <div className="dark:bg-[#2e3345] bg-[#c3d7ff] sm:w-[28rem] w-80  p-3 px-2 sm:px-8 sm:py-10 backdrop-blur-3xl rounded-xl shadow-[10px_10px_20px_8px_rgba(0,0,0,0.3)]">

@@ -4,21 +4,22 @@ import { set, useForm } from "react-hook-form";
 import UserService from "../../services/userService";
 import { Link, useNavigate } from "react-router-dom";
 import { login, logout } from "../../store/auth/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function LoginComponent() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState();
   const [message, setMessage] = useState();
-
+  const { coppiedPassword } = useSelector((state) => state.coppiedPassword);
   const navigate = useNavigate();
+
   const userLogin = async (data) => {
     new UserService()
       .userLogin(data)
       .then((res) => {
         dispatch(login(res.data.loggedInUser));
-        navigate("/");
+        coppiedPassword ? navigate("/save-password") : navigate("/");
         setMessage(res.message);
         setTimeout(() => {
           setMessage("");
@@ -84,10 +85,11 @@ function LoginComponent() {
               >
                 Login
               </Button>
-              
             </div>
           </form>
-          <Link className="px-5" to="/register" >Create an account</Link>
+          <Link className="px-5" to="/register">
+            Create an account
+          </Link>
         </div>
       </div>
     </>
