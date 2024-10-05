@@ -4,6 +4,7 @@ import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/auth/authSlice";
+import { NavLink } from "react-router-dom";
 
 function UserMenu({ userName = "" }) {
   const dispatch = useDispatch();
@@ -26,20 +27,20 @@ function UserMenu({ userName = "" }) {
       >
         <div className="py-1">
           <MenuItem>
-            <a
-              href="#"
+            <NavLink
+              to="/user/update-profile"
               className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
               Update Profile
-            </a>
+            </NavLink>
           </MenuItem>
           <MenuItem>
-            <a
-              href="#"
+            <NavLink
+              to="/user/change-password"
               className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900"
             >
               Change Password
-            </a>
+            </NavLink>
           </MenuItem>
           <MenuItem>
             <button

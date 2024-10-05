@@ -17,9 +17,10 @@ import {
   AuthLayout,
   Dashboard,
   Errorpage,
-  GeneratePassword,
+  ChangePassword,
+  UpdateProfile,
 } from "./components/";
-import { Home, Login, Signup , SavePassword} from "./pages/";
+import { Home, Login, Signup, SavePassword, UserAccount } from "./pages/";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,6 +74,17 @@ const router = createBrowserRouter(
           </AuthLayout>
         }
       />
+      <Route
+        path="user"
+        element={
+          <AuthLayout>
+            <UserAccount />
+          </AuthLayout>
+        }
+      >
+        <Route path="change-password" element={<ChangePassword />} />
+        <Route path="update-profile" element={<UpdateProfile />} />
+      </Route>
     </Route>
   )
 );

@@ -13,6 +13,8 @@ import Errorpage from "./Error/Errorpage";
 import GeneratePassword from "./GeneratePassword/GeneratePassword";
 import Overlay from "./Overlay";
 import Container from "./Container";
+import ChangePassword from "./User/ChangePassword";
+import UpdateProfile from "./User/UpdateProfile";
 
 export {
   Input,
@@ -30,4 +32,6 @@ export {
   GeneratePassword,
   Overlay,
   Container,
+  ChangePassword,
+  UpdateProfile,
 };
