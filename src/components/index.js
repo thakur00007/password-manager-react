@@ -4,7 +4,7 @@ import Select from "./Select";
 import Alert from "./Alert";
 import AuthLayout from "./AuthLayout";
 import Loading from "./Loading";
-import Header from "./Header";
+import Header from "./Header/Header";
 import SignupComponent from "./Signup/SignupComponent";
 import LoginComponent from "./Login/LoginComponent";
 import SavePasswordComponent from "./SavePassword/SavePasswordComponent";
