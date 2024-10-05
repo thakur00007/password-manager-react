@@ -3,13 +3,15 @@ import { Input, Select, Button, Alert } from "..";
 import SecurityQuestion from "../../services/securityQuestion";
 import { useForm } from "react-hook-form";
 import PasswordService from "../../services/password";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { unsetCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
 
 function SavePasswordComponent() {
   const [questions, setQuestions] = useState([]);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [error, setError] = useState();
   const [message, setMessage] = useState();
+  const dispatch = useDispatch();
 
   const { coppiedPassword } = useSelector((state) => state.coppiedPassword);
 
@@ -17,6 +19,8 @@ function SavePasswordComponent() {
     new PasswordService()
       .savePassword(data)
       .then((res) => {
+        reset();
+        dispatch(unsetCoppiedPasswordSlice());
         setMessage(res.message);
         setTimeout(() => {
           setMessage("");

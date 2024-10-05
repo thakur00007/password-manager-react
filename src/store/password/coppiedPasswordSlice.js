@@ -8,8 +8,12 @@ export const coppiedPasswordSlice = createSlice({
     setCoppiedPasswordSlice: (state, action) => {
       state.coppiedPassword = action.payload;
     },
+    unsetCoppiedPasswordSlice: (state) => {
+      state.coppiedPassword = "";
+    },
   },
 });
 
-export const { setCoppiedPasswordSlice } = coppiedPasswordSlice.actions;
+export const { setCoppiedPasswordSlice, unsetCoppiedPasswordSlice } =
+  coppiedPasswordSlice.actions;
 export default coppiedPasswordSlice.reducer;
