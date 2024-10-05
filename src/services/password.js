@@ -76,6 +76,29 @@ export class PasswordService {
       throw error;
     }
   }
+
+  async deletePassword(data) {
+    try {
+      const response = await fetch(this.url + "/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.token,
+        },
+        body: JSON.stringify({ data }),
+      });
+
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+      console.log(responseData);
+
+      return responseData;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default PasswordService;

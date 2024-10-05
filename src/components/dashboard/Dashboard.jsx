@@ -3,6 +3,7 @@ import PasswordService from "../../services/password";
 import ViewPassword from "./ViewPassword";
 import { Button } from "../";
 import { formateDate } from "../../util/utility";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 function Dashboard() {
   const [passList, setPassList] = useState([]);
@@ -10,7 +11,6 @@ function Dashboard() {
     new PasswordService()
       .fetchAllPasswords()
       .then((res) => {
-        console.log(res);
         setPassList(res.data);
       })
       .catch((err) => {
@@ -18,8 +18,19 @@ function Dashboard() {
       });
   }, []);
 
+  const deletePassword = (passwordId) => {
+    new PasswordService()
+      .deletePassword({ passwordId })
+      .then((res) => {
+        console.log(res);
+        setPassList(passList.filter((pass) => pass._id !== passwordId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const [viewPassword, setViewPassword] = useState(<></>);
-  // const [viewPasswordContent, setViewPasswordContent] = useState("");
   const showPassword = (pass) => {
     setViewPassword(
       <ViewPassword pass={pass} close={() => setViewPassword(<></>)} />
@@ -35,15 +46,24 @@ function Dashboard() {
           <div className="flex flex-col h-96 overflow-y-auto p-2">
             {passList.map((pass) => {
               return (
-                <div key={pass._id} className="flex flex-col mb-5">
-                  <span className="text-lg font-semibold">{pass.about}</span>
-                  <span className="text-sm">
-                    Created At: {formateDate(pass.createdAt)}
-                  </span>
-                  {/* <ViewPassword /> */}
+                <div key={pass._id} className="flex flex-col mb-7">
+                  <div className="flex justify-between">
+                    <div className="w-5/6 font-semibold">{pass.about}</div>
+                    <div className="w-1/6">
+                      <TrashIcon
+                        onClick={() => deletePassword(pass._id)}
+                        title="Delete this password"
+                        className="h-6 w-6 m-auto cursor-pointer text-red-500"
+                      />
+                    </div>
+                  </div>
+                  <div className="text-sm flex justify-end py-2">
+                    &mdash; {formateDate(pass.createdAt)}
+                  </div>
+
                   <Button
                     onClick={() => showPassword(pass)}
-                    className="h-10 mb-2 py-2 px-6 hover:bg-[#5c93fd] active:ring-2  dark:active:ring-[#2e3345] ring-[#c3d7ff] bg-[#3f7fff] dark:bg-gray-100 dark:hover:bg-gray-300 dark:text-gray-900 text-gray-100"
+                    className="h-8 mb-2 px-6 hover:bg-[#5c93fd] active:ring-2  dark:active:ring-[#2e3345] ring-[#c3d7ff] bg-[#3f7fff] dark:bg-gray-100 dark:hover:bg-gray-300 dark:text-gray-900 text-gray-100"
                     label="View Password"
                   >
                     View Password
