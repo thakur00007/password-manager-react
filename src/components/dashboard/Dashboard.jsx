@@ -29,10 +29,10 @@ function Dashboard() {
   return (
     <>
       {viewPassword && viewPassword}
-      <div className="container mx-auto flex justify-center items-center mt-20">
+      <div className="container mx-auto flex justify-center items-center mt-2">
         <div className="dark:bg-[#2e3345] bg-[#c3d7ff] sm:w-[28rem] w-80  p-3 px-2 sm:px-8 sm:py-10 backdrop-blur-3xl rounded-xl shadow-[10px_10px_20px_8px_rgba(0,0,0,0.3)]">
           <h1 className="text-4xl text-center font-bold mb-8">Dashboard</h1>
-          <div className="flex flex-col">
+          <div className="flex flex-col h-96 overflow-y-auto p-2">
             {passList.map((pass) => {
               return (
                 <div key={pass._id} className="flex flex-col mb-5">
