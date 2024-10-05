@@ -15,6 +15,7 @@ function ChangePassword() {
   } = useForm();
   const { loggedInUser } = useSelector((state) => state.auth);
   const newPassword = watch("newPassword", "");
+  const email = watch("email", loggedInUser?.email);
 
   const [error, setError] = useState();
   const [message, setMessage] = useState();
@@ -50,7 +51,8 @@ function ChangePassword() {
               label="Email: "
               type="text"
               readOnly={true}
-              value={loggedInUser.email}
+              disabled={true}
+              value={email}
               placeholder="eg: example@company.com"
               className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
             />

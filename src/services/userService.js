@@ -108,5 +108,31 @@ export class UserService {
       throw error;
     }
   }
+
+  async updateProfile(data) {
+    try {
+      if (!this.token) {
+        throw new Error("No token found");
+      }
+
+      const response = await fetch(this.url + "/updateprofile", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.token,
+        },
+        body: JSON.stringify({ data }),
+      });
+
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+
+      return responseData;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export default UserService;
