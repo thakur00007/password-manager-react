@@ -13,10 +13,9 @@ function Dashboard() {
       .fetchAllPasswords()
       .then((res) => {
         setPassList(res.data);
-        console.log(res.data && true);
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message || "Something went wrong");
       });
   }, []);
 
@@ -24,11 +23,10 @@ function Dashboard() {
     new PasswordService()
       .deletePassword({ passwordId })
       .then((res) => {
-        console.log(res);
         setPassList(passList.filter((pass) => pass._id !== passwordId));
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.message || "Something went wrong");
       });
   };
 

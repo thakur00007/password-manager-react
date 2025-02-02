@@ -21,14 +21,12 @@ export class PasswordService {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
       if (!response.ok) {
         throw new Error(responseData.message);
       }
 
       return responseData;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
@@ -47,7 +45,6 @@ export class PasswordService {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      console.log(responseData);
       return responseData;
     } catch (error) {
       throw error;
@@ -69,7 +66,6 @@ export class PasswordService {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      console.log(responseData);
 
       return responseData;
     } catch (error) {
@@ -92,7 +88,6 @@ export class PasswordService {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      console.log(responseData);
 
       return responseData;
     } catch (error) {

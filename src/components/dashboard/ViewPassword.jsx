@@ -16,7 +16,7 @@ function ViewPassword({ pass, close }) {
         alert(res.data.password);
       })
       .catch((err) => {
-        alert(err.message);
+        alert(err.message || "Something went wrong");
       });
   };
 

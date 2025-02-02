@@ -54,7 +54,8 @@ function GeneratePassword() {
         )
       : setMessage(
           <Link to="/save-password" className="text-sm font-semibold leading-6">
-            <span className="text-sky-700">Password Coppied!</span><br />
+            <span className="text-sky-700">Password Coppied!</span>
+            <br />
             <span className="text-sky-700">Save this Password &rarr;</span>
           </Link>
         );
