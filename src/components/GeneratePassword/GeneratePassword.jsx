@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
 import { PlusCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
-import { Alert } from "../index";
+import { Alert, Disclaimer } from "../index";
 
 function GeneratePassword() {
   const dispatch = useDispatch();
@@ -135,6 +135,7 @@ function GeneratePassword() {
           </div>
         </div>
       </div>
+      <Disclaimer />
     </>
   );
 }
