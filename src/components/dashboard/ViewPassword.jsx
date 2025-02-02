@@ -26,7 +26,7 @@ function ViewPassword({ pass, close }) {
       <Overlay />
       <div
         ref={viewPasswordRef}
-        className="absolute z-20 bg-opacity-50 flex justify-center items-center"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-opacity-50 flex justify-center items-center"
       >
         <div className="absolute z-30 top-0 right-0">
           <button
