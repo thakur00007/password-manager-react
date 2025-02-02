@@ -38,7 +38,9 @@ function GeneratePassword() {
   };
 
   const copyPass = (e) => {
+    alert("Password coppied to clipboard!");
     window.navigator.clipboard.writeText(password);
+    navigator.clipboard.writeText(password);
     dispatch(setCoppiedPasswordSlice(password));
     inputPass.current.select();
     inputPass.current.setSelectionRange(0, length);
@@ -80,7 +82,7 @@ function GeneratePassword() {
             />
             <button
               onClick={copyPass}
-              className="bg-gray-500 w-1/6 text-gray-100 font-semibold focus-visible:outline-0 rounded-e px-3 py-2 "
+              className="bg-gray-500 w-1/6 min-w-16 text-gray-100 font-semibold focus-visible:outline-0 rounded-e px-3 py-2 "
             >
               Copy
             </button>
