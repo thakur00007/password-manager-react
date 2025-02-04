@@ -3,6 +3,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button, Input, Overlay } from "../";
 import { useForm } from "react-hook-form";
 import PasswordService from "../../services/password";
+import CryptoService from "../../services/cryptoService";
 
 function ViewPassword({ pass, close }) {
   const viewPasswordRef = useRef(null);
@@ -13,7 +14,7 @@ function ViewPassword({ pass, close }) {
     new PasswordService()
       .showPassword(data)
       .then((res) => {
-        alert(res.data.password);
+        alert(new CryptoService().decrypt(res.data.password));
       })
       .catch((err) => {
         alert(err.message || "Something went wrong");

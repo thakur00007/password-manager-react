@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import PasswordService from "../../services/password";
 import { useSelector, useDispatch } from "react-redux";
 import { unsetCoppiedPasswordSlice } from "../../store/password/coppiedPasswordSlice";
+import CryptoService from "../../services/cryptoService";
 
 function SavePasswordComponent() {
   const [questions, setQuestions] = useState([]);
@@ -16,6 +17,9 @@ function SavePasswordComponent() {
   const { coppiedPassword } = useSelector((state) => state.coppiedPassword);
 
   const savePasswordSubmit = (data) => {
+    console.log(data);
+    data.password = new CryptoService().encrypt(data.password);
+
     new PasswordService()
       .savePassword(data)
       .then((res) => {
