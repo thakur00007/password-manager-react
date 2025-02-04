@@ -38,11 +38,10 @@ function GeneratePassword() {
   };
 
   const copyPass = (e) => {
-    alert("Password coppied to clipboard!");
-    window.navigator.clipboard.writeText(password);
-    navigator.clipboard.writeText(password);
+    // window.navigator.clipboard.writeText(password);
     dispatch(setCoppiedPasswordSlice(password));
     inputPass.current.select();
+    document.execCommand("copy");
     inputPass.current.setSelectionRange(0, length);
 
     !authStatus
@@ -72,21 +71,15 @@ function GeneratePassword() {
         Password Generator
       </h1>
       <div className="flex justify-center select-none">
-        <div className="flex w-[32rem] justify-center flex-col bg-gray-600 rounded p-8">
+        <div className="flex w-[32rem] justify-center flex-col bg-gray-600 rounded py-8 px-3 lg:px-8">
           <div className="flex justify-center w-full mb-2 shadow-md shadow-gray-900">
-            <input
+            <textarea
               type="text"
               readOnly
               value={password}
-              className="rounded-s w-5/6 pointer-finger bg-gray-100 text-gray-900 focus-visible:outline-0 ring-inset focus-visible:ring-2 ring-indigo-600 font-semibold px-3"
+              className="rounded h-24 lg:h-20 w-full pointer-finger bg-gray-100 text-gray-900 focus-visible:outline-0 ring-inset focus-visible:ring-2 ring-indigo-600 font-semibold p-3 resize-none"
               ref={inputPass}
             />
-            <button
-              onClick={copyPass}
-              className="bg-gray-500 w-1/6 min-w-16 text-gray-100 font-semibold focus-visible:outline-0 rounded-e px-3 py-2 "
-            >
-              Copy
-            </button>
           </div>
           <div className="flex justify-evenly w-full m-2">
             <div className="flex justify-center w-full">
@@ -132,6 +125,14 @@ function GeneratePassword() {
                 className="mx-1"
               />
             </div>
+          </div>
+          <div className="w-full mt-4">
+            <button
+              onClick={copyPass}
+              className="bg-gray-500 w-full text-gray-100 font-semibold focus-visible:outline-0 rounded p-2"
+            >
+              Copy
+            </button>
           </div>
         </div>
       </div>
