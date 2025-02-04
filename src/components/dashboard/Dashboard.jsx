@@ -46,7 +46,7 @@ function Dashboard() {
           <h1 className="text-4xl text-center font-bold mb-8">Dashboard</h1>
           {passList.length > 0 ? (
             <div className="flex flex-col h-96 overflow-y-auto p-2">
-              {passList.map((pass) => {
+              {passList.toReversed().map((pass) => {
                 return (
                   <div key={pass._id} className="flex flex-col mb-7">
                     <div className="flex justify-between">
