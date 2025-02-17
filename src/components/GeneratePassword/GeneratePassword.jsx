@@ -23,19 +23,35 @@ function GeneratePassword() {
 
   const generatePassword = (length, allowNumbers, allowSChars) => {
     let alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    const numbers = "012345678901234567890123456789";
-    const specialChars = "!@#$%^&*-_+.!@#$%^&*-_+.";
+    const numbers = "0123456789";
+    const specialChars = "!@#$%^&*-_+.";
 
-    if (allowNumbers) alphaString += numbers;
-    if (allowSChars) alphaString += specialChars;
+    let password = [];
 
-    let password = "";
-    for (let i = 0; i < length; i++) {
-      let randPos = Math.floor(Math.random() * alphaString.length - 1);
-      password += alphaString.charAt(randPos);
+    // Ensuring at least one number 
+    if (allowNumbers) {
+        alphaString += numbers;
+        password.push(numbers.charAt(Math.floor(Math.random() * numbers.length)));
     }
-    return password;
-  };
+
+    // Ensuring at least one special character 
+    if (allowSChars) {
+        alphaString += specialChars;
+        password.push(specialChars.charAt(Math.floor(Math.random() * specialChars.length)));
+    }
+
+    while (password.length < length) {
+        let randPos = Math.floor(Math.random() * alphaString.length);
+        password.push(alphaString.charAt(randPos));
+    }
+
+    for (let i = password.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [password[i], password[j]] = [password[j], password[i]];
+    }
+
+    return password.join('');
+};
 
   const copyPass = (e) => {
     // window.navigator.clipboard.writeText(password);
