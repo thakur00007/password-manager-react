@@ -7,8 +7,8 @@ import CryptoService from "../../services/cryptoService";
 
 function ViewPassword({ pass, close }) {
   const viewPasswordRef = useRef(null);
-
   const { register, handleSubmit } = useForm();
+
   const showPassword = (data) => {
     data.passwordId = pass._id;
     new PasswordService()
@@ -22,53 +22,49 @@ function ViewPassword({ pass, close }) {
   };
 
   return (
-    // pop up modal
     <>
+      {/* Background Overlay */}
       <Overlay />
+
+      {/* Centered Modal */}
       <div
         ref={viewPasswordRef}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-opacity-50 flex justify-center items-center"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
       >
-        <div className="absolute z-30 top-0 right-0">
+        <div className="relative w-full max-w-sm md:max-w-md bg-white dark:bg-[#2e3345] rounded-lg shadow-xl ring-1 ring-gray-200 dark:ring-gray-700">
+          {/* Close Button */}
           <button
-            className="flex justify-center items-center text-2xl h-7 w-7 bg-red-600 rounded-tr-xl rounded-bl-xl font-semibold text-gray-900 dark:text-gra-100 cursor-pointer "
-            onClick={() => close()}
+            onClick={close}
+            className="absolute top-2 right-2 text-gray-500 hover:text-red-500 transition-colors"
+            aria-label="Close"
           >
-            <XMarkIcon className="h-6 w-6 text-gray-100" />
+            <XMarkIcon className="h-6 w-6" />
           </button>
-        </div>
 
-        <div className="dark:bg-[#2e3345] bg-[#c3d7ff] w-96 rounded-xl shadow-[0_0_30px_5px_rgba(255,255,255,0.4)]">
-          <div className="w-full py-1 flex justify-center items-center border-b-2 border-gray-100">
-            <div className="w-5/6">
-              <h2 className="text-2xl mb-0 text-center font-bold">
-                View Password
-              </h2>
-            </div>
-          </div>
-          {/* <h1 className="text-4xl text-center font-bold mb-8">View Password</h1> */}
-          <div className="flex flex-col">
-            <div className="flex flex-col py-10 px-3">
-              <span className="px-5">About: {pass.about}</span>
-              <form onSubmit={handleSubmit(showPassword)}>
-                <Input
-                  label={pass.securityQuestion}
-                  type="text"
-                  className="my-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
-                  {...register("answer", {
-                    required: true,
-                  })}
-                />
-                <div className="px-5">
-                  <Button
-                    type="submit"
-                    className="h-8 px-6 hover:bg-[#5c93fd] active:ring-2  dark:active:ring-[#2e3345] ring-[#c3d7ff] bg-[#3f7fff] dark:bg-gray-100 dark:hover:bg-gray-300 dark:text-gray-900 text-gray-100"
-                  >
-                    Show Password
-                  </Button>
-                </div>
-              </form>
-            </div>
+          {/* Modal Content */}
+          <div className="p-6">
+            <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 text-gray-900 dark:text-gray-100">
+              View Password
+            </h2>
+
+            <p className="text-md text-gray-700 dark:text-gray-300 text-center mb-4">
+              <span className="font-medium">About:</span> {pass.about}
+            </p>
+
+            <form onSubmit={handleSubmit(showPassword)} className="space-y-4">
+              <Input
+                label={pass.securityQuestion}
+                type="text"
+                {...register("answer", { required: true })}
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none py-2 bg-white dark:bg-gray-800 dark:text-white"
+              />
+              <Button
+                type="submit"
+                className="w-full h-10 bg-blue-600 hover:bg-blue-700 dark:bg-blue-400 dark:hover:bg-blue-300 text-white dark:text-gray-900 font-medium rounded-md transition"
+              >
+                Show Password
+              </Button>
+            </form>
           </div>
         </div>
       </div>
