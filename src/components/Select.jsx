@@ -9,8 +9,8 @@ function Select({
 }, ref) {
     const id = useId()
   return (
-    <div className='flex flex-col text-sm items-center justify-center my-2 px-5'>
-        <div className="w-full">
+    <div className='flex flex-col text-sm items-center justify-center my-2 '>
+        <div className="w-full mb-1">
         {label && <label htmlFor={id} className={`${labelClassName}`}>{label}</label>}
         </div>
         <select
