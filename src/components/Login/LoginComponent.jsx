@@ -1,95 +1,113 @@
 import React, { useState } from "react";
 import { Alert, Button, Input } from "../index";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import UserService from "../../services/userService";
 import { Link, useNavigate } from "react-router-dom";
-import { login, logout } from "../../store/auth/authSlice";
+import { login } from "../../store/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function LoginComponent() {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
-  const [error, setError] = useState();
-  const [message, setMessage] = useState();
-  const { coppiedPassword } = useSelector((state) => state.coppiedPassword);
   const navigate = useNavigate();
+  const { coppiedPassword } = useSelector((state) => state.coppiedPassword);
 
-  const userLogin = async (data) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleLogin = async (data) => {
     new UserService()
       .userLogin(data)
       .then((res) => {
         dispatch(login(res.data.loggedInUser));
         coppiedPassword ? navigate("/save-password") : navigate("/");
         setMessage(res.message);
-        setTimeout(() => {
-          setMessage("");
-        }, 6000);
+        setTimeout(() => setMessage(""), 6000);
       })
       .catch((err) => {
         setError(err.message);
-        setTimeout(() => {
-          setError("");
-        }, 6000);
+        setTimeout(() => setError(""), 6000);
       });
   };
 
   return (
     <>
-      {/* <Alert /> */}
       {message && <Alert type="S" message={message} />}
       {error && <Alert type="E" message={error} />}
-      <div className="container mx-auto flex justify-center items-center mt-20">
-        <div className="dark:bg-[#2e3345] bg-[#c3d7ff] sm:w-[28rem] w-80  p-3 px-2 sm:px-8 sm:py-10 backdrop-blur-3xl rounded-xl shadow-[10px_10px_20px_8px_rgba(0,0,0,0.3)]">
-          {/* {error && (
-            <div className="bg-red-500 text-white p-2 mb-3 rounded-lg">
-              {error}
+
+      <div className="min-h-screen flex justify-center items-start px-4 pt-24">
+        <div className="w-full max-w-md bg-white dark:bg-[#2e3345] p-6 sm:p-8 rounded-xl shadow-xl">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+            Login
+          </h1>
+
+          <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
+            {/* Email */}
+            <div>
+              <Input
+                label="Email"
+                type="email"
+                placeholder="e.g. user@example.com"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                    message: "Invalid email address",
+                  },
+                })}
+                className="w-full h-10 px-3 bg-gray-100 text-gray-900 rounded-md"
+              />
+              {errors.email && (
+                <p className="text-sm text-red-600 mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
-          )} */}
-          <h1 className="text-4xl text-center font-bold mb-8">Login</h1>
-          <form onSubmit={handleSubmit(userLogin)}>
-            <Input
-              label="Email: "
-              type="text"
-              placeholder="eg: example@company.com"
-              className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
-              {...register("email", {
-                required: true,
-                // validate: {
-                //   matchPatern: (value) =>
-                //     !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                //     "Email address must be a valid address",
-                // },
-                // pattern: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-              })}
-            />
-            <Input
-              label="password: "
-              type="password"
-              placeholder="eg: Abcdefg@12345678"
-              className="mb-2 focus-visible:outline-0 ring-inset focus-visible:border-1 focus-visible:border-[#c3d7ff] dark:focus-visible:border-[#2e3345] border border-gray-500 focus-visible:ring-2 ring-gray-500 dark:ring-[#c3d7ff]"
-              {...register("password", {
-                required: true,
-                // validate: {
-                //   matchPatern: (value) =>
-                //     !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{14,}$/.test(
-                //       value
-                //     ) | !"Email address must be a valid address",
-                // },
-                // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{14,}$/,
-              })}
-            />
-            <div className="flex justify-center mb-5">
+
+            {/* Password */}
+            <div>
+              <Input
+                label="Password"
+                type="password"
+                placeholder="Your secure password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                className="w-full h-10 px-3 bg-gray-100 text-gray-900 rounded-md"
+              />
+              {errors.password && (
+                <p className="text-sm text-red-600 mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-center">
               <Button
                 type="submit"
-                className="h-10 py-2 px-6 hover:bg-[#5c93fd] active:ring-2  dark:active:ring-[#2e3345] ring-[#c3d7ff] bg-[#3f7fff] dark:bg-gray-100 dark:hover:bg-gray-300 dark:text-gray-900 text-gray-100"
+                disabled={isSubmitting}
+                className="h-10 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md dark:bg-blue-400 dark:text-gray-900 dark:hover:bg-blue-300 transition"
               >
-                Login
+                {isSubmitting ? "Logging in..." : "Login"}
               </Button>
             </div>
           </form>
-          <Link className="px-5" to="/register">
-            Create an account
-          </Link>
+
+          <p className="text-center mt-6 text-sm text-gray-700 dark:text-gray-300">
+            Don’t have an account?
+            <Link
+              to="/register"
+              className="ml-1 text-blue-600 dark:text-blue-400 underline"
+            >
+              Create one
+            </Link>
+          </p>
         </div>
       </div>
     </>
