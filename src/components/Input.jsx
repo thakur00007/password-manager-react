@@ -14,9 +14,9 @@ function Input(
 ) {
   const id = useId();
   return (
-    <div className="flex flex-col text-sm items-center justify-center my-2 px-5">
-      <div className="w-full">
-        <label htmlFor={id} className="text-base">
+    <div className="flex flex-col text-sm items-center justify-center my-2">
+      <div className="w-full mb-1">
+        <label htmlFor={id} className="text-base ">
           {label}
         </label>{" "}
         {error && <span className="text-red-600 text-xs">{error}</span>}
