@@ -1,105 +1,66 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CheckCircleIcon, XMarkIcon, ExclamationCircleIcon, ExclamationTriangleIcon, BellAlertIcon } from "@heroicons/react/24/outline";
-import { set } from "react-hook-form";
+import {
+  CheckCircleIcon,
+  XMarkIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+  BellAlertIcon,
+} from "@heroicons/react/24/outline";
 
-function Alert({
-  message,
-  type = "",
-  duration = 5000,
-}) {
-
+function Alert({ message, type = "", duration = 5000 }) {
   const [show, setShow] = useState(true);
-  const [posR, setPosR] = useState("");
+  const [slideIn, setSlideIn] = useState(false);
+  const divRef = useRef();
 
-  
-  const divRef = useRef()
+  // Handle slide-in animation
   useEffect(() => {
-    // show && divRef.current.classList.add("translate-x-[-420px]");
     if (show) {
-      
-      
-
-      setTimeout(() => {
-        setPosR("translate-x-[-420px]");
-      }
-      , 100);
-      // divRef.current.classList.remove("translate-x-[420px]");
-      // divRef.current.classList.add("translate-x-[-420px]");
-
-    } else {
-      setPosR("");
-      // divRef.current.classList.remove("translate-x-[-420px]");
-      // divRef.current.classList.remove("translate-x-[420px]");
+      setTimeout(() => setSlideIn(true), 100); // Delay for slide-in
+      setTimeout(() => setShow(false), duration); // Auto close
     }
-
-  }, [show, setShow]);
-
-  setTimeout(() => {
-    setShow(false);
-  }
-  , duration);
+  }, [show, duration]);
 
   const closeAlert = () => {
-    setPosR("");
-    setShow(false)
-  }
-  
-  
+    setSlideIn(false);
+    setTimeout(() => setShow(false), 300); // Wait for slide-out
+  };
 
-  if (type === "S") {
-    return (
-      <div ref={divRef} className={`absolute w-auto ease-in-out duration-[500ms] rounded-md border-green-500 top-24 right-[-400px] ${posR} border bg-green-50  flex justify-center items-center shadow-md`}>
-        <div className=" m-5 rounded-lg">
-  
-          <div className="flex justify-between">
-            <CheckCircleIcon className="h-5 w-5 text-green-500 mx-2 me-5" />
-            <span className="text-base text-green-600 font-medium">{message}</span>
-            {/* <XMarkIcon onClick={(e) => closeAlert()} className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer mx-2 ms-5" /> */}
-          </div>
-          
-        </div>
-      </div>
-    );
-  } else if (type === "E") {
-    return (
-      <div ref={divRef} className={`absolute w-auto ease-in-out duration-[500ms] rounded-md border-red-500 top-24 right-[-400px] ${posR} border bg-red-50  flex justify-center items-center shadow-md`}>
-        <div className=" m-5 rounded-lg">
-  
-          <div className="flex justify-between">
-            <ExclamationCircleIcon className="h-5 w-5 text-red-500 mx-2 me-5" />
-            <span className="text-base text-red-600 font-medium">{message}</span>
-            {/* <XMarkIcon onClick={(e) => closeAlert()} className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer mx-2 ms-5" /> */}
-          </div>
-          
-        </div>
-      </div>
-    );
-  } else if (type === "W") {
-    return (
-      <div ref={divRef} className={`absolute w-auto ease-in-out duration-[500ms] rounded-md border-yellow-500 top-24 right-[-400px] ${posR} border bg-yellow-50  flex justify-center items-center shadow-md`}>
-        <div className=" m-5 rounded-lg">
-  
-          <div className="flex justify-between">
-            <ExclamationTriangleIcon className="h-5 w-5 text-yellow-500 mx-2 me-5" />
-            <span className="text-base text-yellow-600 font-medium">{message}</span>
-            {/* <XMarkIcon onClick={(e) => closeAlert()} className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer mx-2 ms-5" /> */}
-          </div>
-          
-        </div>
-      </div>
-    );
-  } 
+  if (!show) return null;
+
+  // Icon based on alert type
+  const iconMap = {
+    S: <CheckCircleIcon className="h-5 w-5 text-green-500" />,
+    E: <ExclamationCircleIcon className="h-5 w-5 text-red-500" />,
+    W: <ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />,
+    default: <BellAlertIcon className="h-5 w-5 text-blue-500" />,
+  };
+
+  const bgMap = {
+    S: "bg-green-50 border-green-500 text-green-600",
+    E: "bg-red-50 border-red-500 text-red-600",
+    W: "bg-yellow-50 border-yellow-500 text-yellow-600",
+    default: "bg-blue-50 border-blue-500 text-blue-600",
+  };
+
+  const icon = iconMap[type] || iconMap.default;
+  const styles = bgMap[type] || bgMap.default;
 
   return (
-    <div ref={divRef} className={`absolute w-auto ease-in-out duration-[500ms] rounded-md border-blue-500 top-24 right-[-400px] ${posR} border bg-blue-50  flex justify-center items-center shadow-md`}>
-      <div className=" m-5 rounded-lg">
-
-        <div className="flex justify-between">
-          <BellAlertIcon className="h-5 w-5 text-blue-500 mx-2 me-5" />
-          <span className="text-base text-blue-600 font-medium">{message}</span>
-          {/* <XMarkIcon onClick={(e) => closeAlert()} className="h-5 w-5 text-gray-500 hover:text-gray-900 cursor-pointer mx-2 ms-5" /> */}
+    <div
+      ref={divRef}
+      className={`fixed top-24 right-4 w-[calc(100%-2rem)] max-w-sm z-50 transition-all duration-500 ease-in-out transform ${
+        slideIn ? "translate-x-0" : "translate-x-full"
+      } rounded-md shadow-lg border ${styles}`}
+    >
+      <div className="flex items-start justify-between p-4">
+        <div className="flex items-center space-x-3">
+          {icon}
+          <span className="text-sm font-medium">{message}</span>
         </div>
-        
+        <XMarkIcon
+          onClick={closeAlert}
+          className="h-5 w-5 text-gray-400 hover:text-gray-600 cursor-pointer"
+        />
       </div>
     </div>
   );
