@@ -59,12 +59,23 @@ function Header() {
                 {status ? (
                   <UserMenu userName={loggedInUser.username} />
                 ) : (
-                  <Link
-                    to="/login"
-                    className="text-sm font-semibold text-gray-700 dark:text-gray-100"
-                  >
-                    Log in <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                  <>
+                    {location.pathname === "/login" ? (
+                      <Link
+                        to="/register"
+                        className="text-sm font-semibold text-gray-700 dark:text-gray-100"
+                      >
+                        Signup <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    ) : (
+                      <Link
+                        to="/login"
+                        className="text-sm font-semibold text-gray-700 dark:text-gray-100"
+                      >
+                        Log in <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -96,20 +107,24 @@ function Header() {
               <div className="hidden md:flex md:items-center">
                 {status ? (
                   <UserMenu userName={loggedInUser.username} />
-                ) : location.pathname === "/login" ? (
-                  <Link
-                    to="/register"
-                    className="text-sm font-semibold text-gray-700 dark:text-gray-100"
-                  >
-                    Signup <span aria-hidden="true">&rarr;</span>
-                  </Link>
                 ) : (
-                  <Link
-                    to="/login"
-                    className="text-sm font-semibold text-gray-700 dark:text-gray-100"
-                  >
-                    Log in <span aria-hidden="true">&rarr;</span>
-                  </Link>
+                  <>
+                    {location.pathname === "/login" ? (
+                      <Link
+                        to="/register"
+                        className="text-sm font-semibold text-gray-700 dark:text-gray-100"
+                      >
+                        Signup <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    ) : (
+                      <Link
+                        to="/login"
+                        className="text-sm font-semibold text-gray-700 dark:text-gray-100"
+                      >
+                        Log in <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    )}
+                  </>
                 )}
               </div>
             </div>
