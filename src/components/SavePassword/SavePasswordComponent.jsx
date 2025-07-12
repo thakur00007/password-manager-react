@@ -75,7 +75,10 @@ function SavePasswordComponent() {
             Save Password
           </h1>
 
-          <form onSubmit={handleSubmit(savePasswordSubmit)} className="space-y-6">
+          <form
+            onSubmit={handleSubmit(savePasswordSubmit)}
+            className="space-y-6"
+          >
             <Input
               label="Password"
               placeholder="Your password"

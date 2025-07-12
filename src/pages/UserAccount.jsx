@@ -1,13 +1,13 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import { Container } from '../components'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { Container } from "../components";
 
 function UserAccount() {
   return (
     <Container>
       <Outlet />
     </Container>
-  )
+  );
 }
 
-export default UserAccount
+export default UserAccount;

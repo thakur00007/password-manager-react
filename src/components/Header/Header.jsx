@@ -28,7 +28,7 @@ function Header() {
       as="nav"
       className="relative bg-white border-b shadow-sm dark:bg-gray-900"
     >
-      {({ open,close }) => (
+      {({ open, close }) => (
         <>
           {/* HEADER */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

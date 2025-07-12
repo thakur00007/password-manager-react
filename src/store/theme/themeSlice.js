@@ -12,7 +12,7 @@ export const themeSlice = createSlice({
       state.pageTheme = action.payload;
       document.querySelector("html").classList.remove("light", "dark");
       document.querySelector("html").classList.add(action.payload);
-      setValue("theme", action.payload)
+      setValue("theme", action.payload);
     },
   },
 });

@@ -2,7 +2,7 @@ import React from "react";
 
 function Button({ children, type = "button", className = "", ...props }) {
   return (
-    <button 
+    <button
       className={`rounded-md ring-inset focus-visible:outline-1 focus-visible:ring-0 ${className}`}
       type={type}
       {...props}

@@ -28,30 +28,32 @@ function GeneratePassword() {
 
     let password = [];
 
-    // Ensuring at least one number 
+    // Ensuring at least one number
     if (allowNumbers) {
-        alphaString += numbers;
-        password.push(numbers.charAt(Math.floor(Math.random() * numbers.length)));
+      alphaString += numbers;
+      password.push(numbers.charAt(Math.floor(Math.random() * numbers.length)));
     }
 
-    // Ensuring at least one special character 
+    // Ensuring at least one special character
     if (allowSChars) {
-        alphaString += specialChars;
-        password.push(specialChars.charAt(Math.floor(Math.random() * specialChars.length)));
+      alphaString += specialChars;
+      password.push(
+        specialChars.charAt(Math.floor(Math.random() * specialChars.length))
+      );
     }
 
     while (password.length < length) {
-        let randPos = Math.floor(Math.random() * alphaString.length);
-        password.push(alphaString.charAt(randPos));
+      let randPos = Math.floor(Math.random() * alphaString.length);
+      password.push(alphaString.charAt(randPos));
     }
 
     for (let i = password.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [password[i], password[j]] = [password[j], password[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [password[i], password[j]] = [password[j], password[i]];
     }
 
-    return password.join('');
-};
+    return password.join("");
+  };
 
   const copyPass = (e) => {
     // window.navigator.clipboard.writeText(password);

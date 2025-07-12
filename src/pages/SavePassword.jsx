@@ -1,12 +1,12 @@
-import React from 'react'
-import { Container, SavePasswordComponent } from '../components'
+import React from "react";
+import { Container, SavePasswordComponent } from "../components";
 
 function SavePassword() {
   return (
-    <Container >
+    <Container>
       <SavePasswordComponent />
     </Container>
-  )
+  );
 }
 
-export default SavePassword
+export default SavePassword;

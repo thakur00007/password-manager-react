@@ -13,7 +13,8 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    new UserService().getCurrentUser()
+    new UserService()
+      .getCurrentUser()
       .then((res) => {
         if (res.data.loggedInUser) {
           dispatch(login(res.data.loggedInUser));
@@ -33,7 +34,7 @@ function App() {
         <Loading />
       ) : (
         <>
-          <Header /> 
+          <Header />
           <Outlet />
         </>
       )}
