@@ -5,7 +5,7 @@ import {
   DisclosurePanel,
   DisclosureButton,
 } from "@headlessui/react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserMenu from "./UserMenu";
 
@@ -23,6 +23,8 @@ function Header() {
     { name: "Dashboard", url: "/dashboard", auth: status },
     { name: "Privacy Policy", url: "/privacy-policy", auth: true },
   ];
+
+  const location = useLocation();
 
   return (
     <Disclosure
@@ -94,6 +96,13 @@ function Header() {
               <div className="hidden md:flex md:items-center">
                 {status ? (
                   <UserMenu userName={loggedInUser.username} />
+                ) : location.pathname === "/login" ? (
+                  <Link
+                    to="/register"
+                    className="text-sm font-semibold text-gray-700 dark:text-gray-100"
+                  >
+                    Signup <span aria-hidden="true">&rarr;</span>
+                  </Link>
                 ) : (
                   <Link
                     to="/login"
