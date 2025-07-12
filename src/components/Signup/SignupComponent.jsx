@@ -132,6 +132,34 @@ function SignupComponent() {
                 </p>
               )}
             </div>
+            {/* Privacy Policy */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="privacyPolicy"
+                {...register("privacyPolicy", {
+                  required: "You must accept the Privacy Policy",
+                })}
+                className="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              />
+              <label
+                htmlFor="privacyPolicy"
+                className="text-sm text-gray-700 dark:text-gray-300"
+              >
+                I accept the{" "}
+                <Link
+                  to="/privacy-policy"
+                  className="text-blue-600 dark:text-blue-400 underline"
+                >
+                  Privacy Policy
+                </Link>
+              </label>
+              {errors.privacyPolicy && (
+                <p className="text-sm text-red-600 mt-1">
+                  {errors.privacyPolicy.message}
+                </p>
+              )}
+            </div>
 
             {/* Submit */}
             <div className="flex justify-center">
