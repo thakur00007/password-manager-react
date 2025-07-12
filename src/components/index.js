@@ -15,7 +15,6 @@ import Overlay from "./Overlay";
 import Container from "./Container";
 import ChangePassword from "./User/ChangePassword";
 import UpdateProfile from "./User/UpdateProfile";
-import Disclaimer from "./Disclaimer";
 
 export {
   Input,
@@ -35,5 +34,4 @@ export {
   Container,
   ChangePassword,
   UpdateProfile,
-  Disclaimer,
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Select, Button, Alert, Disclaimer } from "../";
+import { Input, Select, Button, Alert } from "../";
 import SecurityQuestion from "../../services/securityQuestion";
 import { useForm } from "react-hook-form";
 import PasswordService from "../../services/password";
@@ -119,8 +119,6 @@ function SavePasswordComponent() {
           </form>
         </div>
       </div>
-
-      <Disclaimer />
     </>
   );
 }
