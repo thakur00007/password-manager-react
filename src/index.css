@@ -6,7 +6,7 @@ body {
   background-color: #111;
   color: #fff;
   font-family: poppins, sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* scroolbar style */

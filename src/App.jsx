@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import UserService from "./services/userService";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "./store/auth/authSlice";
-import { Header, Loading } from "./components";
+import { Header, Loading, Footer } from "./components";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,11 @@ function App() {
       ) : (
         <>
           <Header />
-          <Outlet />
+          <div className="min-h-[calc(100vh-4rem-1px)] flex flex-col">
+            <Outlet />
+            <div className="flex-grow"></div>
+            <Footer />
+          </div>
         </>
       )}
     </>

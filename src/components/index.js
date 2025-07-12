@@ -15,6 +15,7 @@ import Overlay from "./Overlay";
 import Container from "./Container";
 import ChangePassword from "./User/ChangePassword";
 import UpdateProfile from "./User/UpdateProfile";
+import Footer from "./Footer/Footer";
 
 export {
   Input,
@@ -34,4 +35,5 @@ export {
   Container,
   ChangePassword,
   UpdateProfile,
+  Footer,
 };

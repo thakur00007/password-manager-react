@@ -40,7 +40,7 @@ function LoginComponent() {
       {message && <Alert type="S" message={message} />}
       {error && <Alert type="E" message={error} />}
 
-      <div className="min-h-screen flex justify-center items-start px-4 pt-24">
+      <div className="flex justify-center items-start px-4 pt-24">
         <div className="w-full max-w-md bg-white dark:bg-[#2e3345] p-6 sm:p-8 rounded-xl shadow-xl">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-900 dark:text-white">
             Login
