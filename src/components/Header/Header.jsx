@@ -21,6 +21,7 @@ function Header() {
     { name: "Generate Password", url: "/", auth: true },
     { name: "Save Password", url: "/save-password", auth: status },
     { name: "Dashboard", url: "/dashboard", auth: status },
+    { name: "Privacy Policy", url: "/privacy-policy", auth: true },
   ];
 
   return (

@@ -16,6 +16,7 @@ import Container from "./Container";
 import ChangePassword from "./User/ChangePassword";
 import UpdateProfile from "./User/UpdateProfile";
 import Footer from "./Footer/Footer";
+import PrivacyPolicyComponent from "./PrivacyPolicy/PrivacyPolicyComponent.jsx";
 
 export {
   Input,
@@ -36,4 +37,5 @@ export {
   ChangePassword,
   UpdateProfile,
   Footer,
+  PrivacyPolicyComponent,
 };

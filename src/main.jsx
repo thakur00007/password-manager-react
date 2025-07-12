@@ -20,7 +20,14 @@ import {
   ChangePassword,
   UpdateProfile,
 } from "./components/";
-import { Home, Login, Signup, SavePassword, UserAccount } from "./pages/";
+import {
+  Home,
+  Login,
+  Signup,
+  SavePassword,
+  UserAccount,
+  PrivacyPolicy,
+} from "./pages/";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +61,15 @@ const router = createBrowserRouter(
         element={
           <AuthLayout authenicated={false}>
             <Signup />
+          </AuthLayout>
+        }
+      />
+
+      <Route
+        path="privacy-policy"
+        element={
+          <AuthLayout authenicated={false}>
+            <PrivacyPolicy />
           </AuthLayout>
         }
       />
