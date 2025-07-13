@@ -35,14 +35,15 @@ export class UserService {
     }
   }
 
-  async userLogin(cradentials) {
+  async userLogin(cradentials, recaptchaToken) {
     try {
+      console.log("Recaptcha Token:", recaptchaToken);
       const response = await fetch(this.url + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: cradentials }),
+        body: JSON.stringify({ recaptchaToken, user: cradentials }),
       });
 
       const responseData = await response.json();
