@@ -5,6 +5,7 @@ import UserService from "../../services/userService";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../store/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 function LoginComponent() {
   const dispatch = useDispatch();
@@ -17,12 +18,19 @@ function LoginComponent() {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
   const handleLogin = async (data) => {
+    if (!executeRecaptcha) {
+      setError("Recaptcha not ready");
+      return;
+    }
+    const recaptchaToken = await executeRecaptcha("login");
     new UserService()
-      .userLogin(data)
+      .userLogin(data, recaptchaToken)
       .then((res) => {
         dispatch(login(res.data.loggedInUser));
         coppiedPassword ? navigate("/save-password") : navigate("/");

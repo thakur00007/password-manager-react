@@ -11,14 +11,14 @@ export class UserService {
     this.token = getValue("auth-token");
   }
 
-  async userSignup(userDetails) {
+  async userSignup(userDetails, recaptchaToken) {
     try {
       const response = await fetch(this.url + "/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: userDetails }),
+        body: JSON.stringify({ recaptchaToken, user: userDetails }),
       });
 
       const responseData = await response.json();
@@ -35,14 +35,14 @@ export class UserService {
     }
   }
 
-  async userLogin(cradentials) {
+  async userLogin(cradentials, recaptchaToken) {
     try {
       const response = await fetch(this.url + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: cradentials }),
+        body: JSON.stringify({ recaptchaToken, user: cradentials }),
       });
 
       const responseData = await response.json();
